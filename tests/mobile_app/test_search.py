@@ -1,8 +1,16 @@
 import allure
+import pytest
 from allure_commons._allure import title
 
+from config import config
 from wikipedia.pages import wikipedia_app
 
+skip_on_ios = pytest.mark.skipif(
+    config.platformName.lower() == 'ios',
+    reason="Тест не поддерживается на iOS"
+)
+
+@skip_on_ios
 @allure.epic("Wikipedia")
 @allure.feature("Search")
 @allure.story("Search valid query")
