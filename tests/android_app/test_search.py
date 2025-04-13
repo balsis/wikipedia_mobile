@@ -1,8 +1,11 @@
+import allure
 from allure_commons._allure import title
 
 from wikipedia.pages import wikipedia_app
 
-
+@allure.epic("Wikipedia")
+@allure.feature("Search")
+@allure.story("Search valid query")
 class TestSearch:
     @title("Search and verify found content")
     def test_search(self, search_query="Appium"):
