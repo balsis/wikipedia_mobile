@@ -16,15 +16,12 @@ dotenv.load_dotenv(dotenv_path = env_file)
 
 
 class ProjectConfig(BaseSettings):
-    platformName: str = Field(default = 'Android')  # 'Android' или 'iOS'
-
+    platformName: str
     bstack_userName: str
     bstack_accessKey: str
-
     timeout: int
-    app_package: str = 'bs://8dd4ebcc3eff6c9d1a095dfdab65ddd332497ca7'
+    app_package: str
     bstack_remote_url: str = 'http://hub.browserstack.com/wd/hub'
-
     deviceName: str
     platformVersion: str
 
@@ -34,7 +31,7 @@ class ProjectConfig(BaseSettings):
             'deviceName': self.deviceName,
             'app': self.app_package,
             'bstack:options': {
-                'projectName': 'First mobile project',
+                'projectName': 'Mobile project',
                 'buildName': 'browserstack-build-1',
                 'sessionName': f'{self.platformName} test',
                 'userName': self.bstack_userName,
@@ -42,10 +39,10 @@ class ProjectConfig(BaseSettings):
             }
         }
 
-        if self.platformName.lower() == 'android':
+        if self.platformName == 'android':
             return UiAutomator2Options().load_capabilities(capabilities)
 
-        elif self.platformName.lower() == 'ios':
+        elif self.platformName == 'ios':
             return XCUITestOptions().load_capabilities(capabilities)
 
         else:
