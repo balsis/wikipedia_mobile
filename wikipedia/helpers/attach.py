@@ -6,7 +6,7 @@ import requests
 from config import config
 
 
-def bstack_screenshot():
+def screenshot():
     allure.attach(
         browser.driver.get_screenshot_as_png(),
         name = 'screenshot',
@@ -14,7 +14,7 @@ def bstack_screenshot():
     )
 
 
-def bstack_page_source_xml():
+def page_source_xml():
     allure.attach(
         browser.driver.page_source,
         name = 'screen xml dump',

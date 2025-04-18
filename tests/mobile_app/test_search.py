@@ -1,16 +1,8 @@
 import allure
-import pytest
 from allure_commons._allure import title
-
-from config import config
 from wikipedia.pages import wikipedia_app
 
-skip_on_ios = pytest.mark.skipif(
-    config.platformName.lower() == 'ios',
-    reason="Тест не поддерживается на iOS"
-)
 
-@skip_on_ios
 @allure.epic("Wikipedia")
 @allure.feature("Search")
 @allure.story("Search valid query")
@@ -24,3 +16,12 @@ class TestSearch:
     def test_search_and_open_article(self, search_query="Appium"):
         wikipedia_app.type_search(search_query)
         wikipedia_app.open_article(search_query)
+
+    def test_onboarding_screen(self):
+        wikipedia_app.validate_first_onboarding_view()
+        wikipedia_app.continue_onboarding()
+        wikipedia_app.validate_second_onboarding_view()
+        wikipedia_app.continue_onboarding()
+        wikipedia_app.validate_third_onboarding_view()
+        wikipedia_app.continue_onboarding()
+        wikipedia_app.validate_fourth_onboarding_view_and_accept_button()
